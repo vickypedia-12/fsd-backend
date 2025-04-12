@@ -54,6 +54,7 @@ public class InventoryProductController {
         existingProduct.setProductDescription(productDetails.getProductDescription());
         existingProduct.setUnitPrice(productDetails.getUnitPrice());
         existingProduct.setReorderLevel(productDetails.getReorderLevel());
+        existingProduct.setQuantityInStock(productDetails.getQuantityInStock());
         existingProduct.setCategory(productDetails.getCategory());
         existingProduct.setSupplier(productDetails.getSupplier());
 
