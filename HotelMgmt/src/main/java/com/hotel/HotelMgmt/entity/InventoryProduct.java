@@ -18,6 +18,7 @@ public class InventoryProduct {
     private String productDescription;
     private Double unitPrice;
     private Integer reorderLevel;
+    private Integer quantityInStock;
 
     @ManyToOne
     @JoinColumn(name = "categoryId")
@@ -25,9 +26,9 @@ public class InventoryProduct {
 
     @ManyToMany
     @JoinTable(
-        name = "Product_Supplier",  // Define the join table name
-        joinColumns = @JoinColumn(name = "productId"),  // Join column from the Product table
-        inverseJoinColumns = @JoinColumn(name = "supplierId")  // Join column from the Supplier table
+        name = "Product_Supplier", 
+        joinColumns = @JoinColumn(name = "productId"), 
+        inverseJoinColumns = @JoinColumn(name = "supplierId") 
     )
     private List<InventorySupplier> supplier;
 
@@ -36,11 +37,12 @@ public class InventoryProduct {
     public InventoryProduct() {
     }
 
-    public InventoryProduct(String productName, String productDescription, Double unitPrice, Integer reorderLevel, InventoryCategory category, List<InventorySupplier> supplier) {
+    public InventoryProduct(String productName, String productDescription, Double unitPrice, Integer reorderLevel, Integer quantityInStock, InventoryCategory category, List<InventorySupplier> supplier) {
         this.productName = productName;
         this.productDescription = productDescription;
         this.unitPrice = unitPrice;
         this.reorderLevel = reorderLevel;
+        this.quantityInStock = quantityInStock;
         this.category = category;
         this.supplier = supplier;
  
@@ -86,6 +88,14 @@ public class InventoryProduct {
     // Getter and Setter for reorderLevel
     public Integer getReorderLevel() {
         return reorderLevel;
+    }
+    
+    public Integer getQuantityInStock() {
+        return quantityInStock;
+    }
+
+    public void setQuantityInStock(Integer quantityInStock) {
+        this.quantityInStock = quantityInStock;
     }
 
     public void setReorderLevel(Integer reorderLevel) {

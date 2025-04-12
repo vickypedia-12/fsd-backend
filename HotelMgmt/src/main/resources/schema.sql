@@ -19,6 +19,7 @@ CREATE TABLE Product (
     product_description TEXT,
     unit_price DECIMAL(10, 2),
     reorder_level INTEGER,
+    quantity_in_stock INTEGER DEFAULT 0,
     category_id INTEGER REFERENCES Category(category_id)
 );
 
