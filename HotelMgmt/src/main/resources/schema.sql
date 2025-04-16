@@ -29,3 +29,38 @@ CREATE TABLE Product_Supplier (
     supplier_id INTEGER REFERENCES Supplier(supplier_id),
     PRIMARY KEY (product_id, supplier_id)
 );
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(50) NOT NULL CHECK (role IN ('USER', 'ADMIN')),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE admins (
+    id SERIAL PRIMARY KEY,
+    user_id INT UNIQUE NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    otp_secret VARCHAR(255) NOT NULL,
+    last_login_ip VARCHAR(50),
+    last_login_location VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE user_preferences (
+    id SERIAL PRIMARY KEY,
+    user_id INT UNIQUE NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    diet_type VARCHAR(50) CHECK (diet_type IN ('Veg', 'Non-Veg', 'Vegan', 'Jain', 'No preference')),
+    favorite_cuisines TEXT, -- Multi-select stored as a comma-separated string
+    spice_tolerance_level VARCHAR(50) CHECK (spice_tolerance_level IN ('Low', 'Medium', 'High')),
+    favorite_dish VARCHAR(255),
+    food_allergies TEXT,
+    dining_preference VARCHAR(50) CHECK (dining_preference IN ('Dine-in', 'Takeaway', 'Home Delivery', 'No preference')),
+    usually_dine_with VARCHAR(50) CHECK (usually_dine_with IN ('Alone', 'Friends', 'Family', 'Colleagues')),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
